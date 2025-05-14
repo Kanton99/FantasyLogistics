@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace FantasyLogistics
 {
 	[CreateAssetMenu(fileName="Recipe", menuName="Items/Recipe")]
-	class Recipe : ScriptableObject 
+	public class Recipe : ScriptableObject 
 	{
 		public ResourceAmount[] input;
 		public ResourceAmount[] output;
