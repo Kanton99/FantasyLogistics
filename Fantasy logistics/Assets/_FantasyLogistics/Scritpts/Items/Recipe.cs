@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace FantasyLogistics
 {
-	[CreateAssetMenu(fileName="Recipe", menuName="Items/Recipe")]
-	public class Recipe : ScriptableObject 
+	[CreateAssetMenu(fileName = "Recipe", menuName = "Items/Recipe")]
+	public class Recipe : ScriptableObject
 	{
 		public ResourceAmount[] input;
 		public ResourceAmount[] output;
@@ -13,7 +13,8 @@ namespace FantasyLogistics
 		[SerializeField]
 		Sprite customSprite;
 
-		public Sprite getSprite(){
+		public Sprite getSprite()
+		{
 			return customSprite ? customSprite : output[0].resource.sprite;
 		}
 	}
