@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1b028dbd268aba45a1ba6379ff5d712, type: 3}
+  m_Script: {fileID: 0}
   m_Name: Powder
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp:FantasyLogistics:ItemSO
+  itemName: Powder
+  itemSprite: {fileID: 0}
+  amout: 1
