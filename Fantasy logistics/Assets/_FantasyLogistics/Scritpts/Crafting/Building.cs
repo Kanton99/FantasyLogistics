@@ -12,11 +12,12 @@ namespace FantasyLogistics
 		void Start()
 		{
 			_entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-			if (!recipe) SetRecipe(recipe);
+			if (recipe) SetRecipe(recipe);
 		}
 
 		public void SetRecipe(RecipeSO recipe)
 		{
+			Debug.Log($"new recipe set {recipe.name}");
 			recipeEntity = CreateRecipeEntity(recipe);
 			this.recipe = recipe;
 		}
