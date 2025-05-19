@@ -15,13 +15,60 @@ namespace FantasyLogistics
 			_entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 			if (recipe) SetRecipe(recipe);
 		}
+		
+		void Destory()
+		{
+			_entityManager.DestroyEntity(recipeEntity);
+		}
 
 		public void SetRecipe(RecipeSO recipe)
 		{
 			Debug.Log($"new recipe set {recipe.name}");
+			if(_entityManager.Exists(recipeEntity)) _entityManager.DestroyEntity(recipeEntity);
 			recipeEntity = CreateRecipeEntity(recipe);
 			this.recipe = recipe;
 		}
+
+		public void InputItem(Entity item)
+		{
+			if (recipeEntity != null)
+			{
+				var inputData = _entityManager.GetComponentData<ItemComponent>(item);
+				var recipeData = _entityManager.GetComponentData<RecipeInputs>(recipeEntity);
+				foreach (var recipeInput in recipeData.Value)
+				{
+					var invItem = _entityManager.GetComponentData<ItemComponent>(recipeInput);
+					if (invItem.itemName == inputData.itemName)
+					{
+						invItem.amount += inputData.amount;
+						_entityManager.SetComponentData(recipeInput, invItem);
+						break;
+					}
+				}
+			}
+		}
+
+		public Entity GetOutput(int amount)
+		{
+			if (_entityManager.Exists(recipeEntity))
+			{
+				var output = _entityManager.GetComponentData<RecipeOutput>(recipeEntity).output;
+				var outputItem = _entityManager.GetComponentData<ItemComponent>(output);
+
+				var returnEntity = _entityManager.Instantiate(output);
+				var returnEntityComponent = _entityManager.GetComponentData<ItemComponent>(returnEntity);
+
+				int returnAmount = outputItem.amount >= amount ? amount : outputItem.amount;
+				outputItem.amount -= returnAmount;
+				returnEntityComponent.amount = returnAmount;
+
+				_entityManager.SetComponentData(returnEntity, returnEntityComponent);
+				_entityManager.SetComponentData(output, outputItem);
+				return returnEntity;
+			}
+			throw new System.Exception("trying to get output from unset building");
+		}
+
 		private Entity CreateRecipeEntity(RecipeSO recipe)
 		{
 			// Create a new Recipe entity
@@ -79,6 +126,21 @@ namespace FantasyLogistics
 
 
 			return recipeEntity;
+		}
+
+		[ContextMenu("Recipe/Fill")]
+		public void FillInputs()
+		{
+			var recipeInput = _entityManager.GetComponentData<RecipeInputs>(recipeEntity).Value;
+			foreach(var input in recipeInput){
+				var newItem = _entityManager.Instantiate(input);
+				var inputItem = _entityManager.GetComponentData<ItemComponent>(newItem);
+				inputItem.amount = 100;
+				_entityManager.SetComponentData(newItem,inputItem);
+
+				InputItem(newItem);
+				_entityManager.DestroyEntity(newItem);
+			}
 		}
 	}
 }
