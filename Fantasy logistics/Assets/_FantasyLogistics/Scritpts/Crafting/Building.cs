@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Entities;
+using Unity.Collections;
 
 namespace FantasyLogistics
 {
@@ -24,12 +25,16 @@ namespace FantasyLogistics
 		private Entity CreateRecipeEntity(RecipeSO recipe)
 		{
 			// Create a new Recipe entity
-			var entityArchetype = _entityManager.CreateArchetype(
+			var recipeEntityArchetype = _entityManager.CreateArchetype(
 				typeof(RecipeData),
-				typeof(RecipeState)
+				typeof(RecipeState),
+				typeof(RecipeInputs),
+				typeof(RecipeOutput)
 			);
 
-			var recipeEntity = _entityManager.CreateEntity(entityArchetype);
+			var itemEntityArchetype = _entityManager.CreateArchetype(typeof(ItemComponent));
+
+			var recipeEntity = _entityManager.CreateEntity(recipeEntityArchetype);
 
 			var recipyBlob = recipe.CreateRecipeData();
 			// Initialize with data
@@ -43,6 +48,35 @@ namespace FantasyLogistics
 				isProcessing = false,
 				timeRemaining = 0f
 			});
+
+			var outputEntity = _entityManager.CreateEntity(itemEntityArchetype);
+			_entityManager.SetComponentData(outputEntity, new ItemComponent
+			{
+				itemName = recipe.output.itemName,
+				amount = 0
+			});
+			_entityManager.SetComponentData(recipeEntity, new RecipeOutput
+			{
+				output = outputEntity
+			});
+
+			FixedList32Bytes<Entity> inputs = new FixedList32Bytes<Entity>();
+			foreach (var item in recipe.inputs)
+			{
+				var inputEntity = _entityManager.CreateEntity(itemEntityArchetype);
+				_entityManager.SetComponentData(inputEntity, new ItemComponent
+				{
+					itemName = item.itemName,
+					amount = 0
+				});
+				inputs.Add(inputEntity);
+			}
+
+			_entityManager.SetComponentData(recipeEntity, new RecipeInputs
+			{
+				Value = inputs
+			});
+
 
 			return recipeEntity;
 		}

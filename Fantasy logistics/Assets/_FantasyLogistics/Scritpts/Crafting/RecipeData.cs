@@ -1,4 +1,5 @@
 using Unity.Entities;
+using Unity.Collections;
 
 public struct RecipeData : IComponentData
 {
@@ -9,6 +10,22 @@ public struct RecipeState : IComponentData
 {
 	public float timeRemaining;
 	public bool isProcessing;
+}
+
+public struct RecipeInputs : IComponentData
+{
+	public FixedList32Bytes<Entity> Value;
+}
+
+public struct RecipeOutput : IComponentData
+{
+	public Entity output;
+}
+
+public struct ItemComponent : IComponentData
+{
+	public FixedString64Bytes itemName;
+	public int amount;
 }
 
 public struct RecipeBlob
