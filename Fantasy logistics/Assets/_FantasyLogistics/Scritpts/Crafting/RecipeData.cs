@@ -12,14 +12,17 @@ public struct RecipeState : IComponentData
 	public bool isProcessing;
 }
 
-public struct RecipeInputs : IComponentData
+[InternalBufferCapacity(4)]
+public struct RecipeInputs : IBufferElementData
 {
-	public FixedList32Bytes<Entity> Value;
+	public FixedString32Bytes itemName;
+	public int amount;
 }
 
 public struct RecipeOutput : IComponentData
 {
-	public Entity output;
+	public FixedString32Bytes itemName;
+	public int amount;
 }
 
 public struct ItemComponent : IComponentData

@@ -11,10 +11,8 @@ namespace FantasyLogistics
 		public void OnUpdate(ref SystemState state)
 		{
 			var deltaTime = SystemAPI.Time.DeltaTime;
-			var outputLookup = SystemAPI.GetComponentLookup<ItemComponent>(isReadOnly: false);
-			var inputLookup = SystemAPI.GetComponentLookup<ItemComponent>(isReadOnly: false);
 
-			foreach (var (recipeData, recipeState, recipeInputs, recipeOutput) in SystemAPI.Query<RefRO<RecipeData>, RefRW<RecipeState>, RefRO<RecipeInputs>, RefRW<RecipeOutput>>())
+			foreach (var (recipeData, recipeState, recipeInputs, recipeOutput) in SystemAPI.Query<RefRO<RecipeData>, RefRW<RecipeState>, DynamicBuffer<RecipeInputs>, RefRW<RecipeOutput>>())
 			{
 				var recipeBlob = recipeData.ValueRO.recipeBlob;
 
@@ -26,13 +24,7 @@ namespace FantasyLogistics
 						recipeState.ValueRW.isProcessing = false;
 						recipeState.ValueRW.timeRemaining = 0;
 
-						if (outputLookup.HasComponent(recipeOutput.ValueRO.output))
-						{
-							var outputItem = outputLookup[recipeOutput.ValueRO.output];
-							outputItem.amount++;
-							outputLookup[recipeOutput.ValueRO.output] = outputItem;
-							Debug.Log($"Finished a recipe, {outputItem.itemName}:{outputItem.amount}");
-						}
+						recipeOutput.ValueRW.amount += recipeData.ValueRO.recipeBlob.Value.output.amount;
 						// outputItem.amount++;
 					}
 				}
@@ -40,24 +32,19 @@ namespace FantasyLogistics
 				{
 					//TODO consume inputs
 					bool canStart = true;
-					int count = 0;
-					foreach (var item in recipeInputs.ValueRO.Value)
+					for (int i = 0; i < recipeInputs.Length; i++)
 					{
-						var inputItem = inputLookup[item];
-						if (inputItem.amount < recipeBlob.Value.inputs[count].amount)
+						if (recipeInputs[i].amount < recipeBlob.Value.inputs[i].amount)
 							canStart = false;
-						count++;
 					}
 
 					if (canStart)
 					{
-						count = 0;
-						foreach (var item in recipeInputs.ValueRO.Value)
+						for (int i = 0; i < recipeInputs.Length; i++)
 						{
-							var inputItem = inputLookup[item];
-							inputItem.amount -= recipeBlob.Value.inputs[count].amount;
-							inputLookup[item] = inputItem;
-							count++;
+							var input = recipeInputs[i];
+							input.amount -= recipeBlob.Value.inputs[i].amount;
+							recipeInputs.ElementAt(i) = input;
 						}
 						recipeState.ValueRW.isProcessing = true;
 						recipeState.ValueRW.timeRemaining = recipeBlob.Value.craftingTime;
