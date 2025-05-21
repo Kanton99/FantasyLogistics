@@ -1,6 +1,6 @@
 using UnityEngine;
 using Unity.Entities;
-using Unity.Collections;
+using Unity.Mathematics;
 
 namespace FantasyLogistics
 {
@@ -102,7 +102,8 @@ namespace FantasyLogistics
 			_entityManager.SetComponentData(recipeEntity, new RecipeState
 			{
 				isProcessing = false,
-				timeRemaining = 0f
+				timeRemaining = 0f,
+				position = new float2(gameObject.transform.position.x, gameObject.transform.position.y)
 			});
 
 			_entityManager.SetComponentData(recipeEntity, new RecipeOutput
