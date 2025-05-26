@@ -2,7 +2,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Burst;
 using Unity.Transforms;
-using Unity.Collections;
 namespace FantasyLogistics
 {
 	public struct GolemInstantiator : IComponentData

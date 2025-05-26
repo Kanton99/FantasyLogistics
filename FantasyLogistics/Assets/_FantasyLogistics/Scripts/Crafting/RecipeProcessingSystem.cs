@@ -1,6 +1,5 @@
 using Unity.Burst;
 using Unity.Entities;
-using UnityEngine;
 
 namespace FantasyLogistics
 {
@@ -25,12 +24,10 @@ namespace FantasyLogistics
 						recipeState.ValueRW.timeRemaining = 0;
 
 						recipeOutput.ValueRW.amount += recipeData.ValueRO.recipeBlob.Value.output.amount;
-						// outputItem.amount++;
 					}
 				}
 				else
 				{
-					//TODO consume inputs
 					bool canStart = true;
 					for (int i = 0; i < recipeInputs.Length; i++)
 					{
