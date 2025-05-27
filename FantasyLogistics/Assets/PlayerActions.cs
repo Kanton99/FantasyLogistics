@@ -105,11 +105,11 @@ namespace FantasyLogistics
                 {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
-                    ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
+                    ""id"": ""a43ba0cf-97a3-4503-a9bc-067412fc51cd"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -247,22 +247,11 @@ namespace FantasyLogistics
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1c04ea5f-b012-41d1-a6f7-02e963b52893"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""f71bccd7-6de4-40a6-a446-6d7d61e5c828"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3f66d0b-7751-423f-908b-a11c5bd95930"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

@@ -10,6 +10,7 @@ namespace FantasyLogistics
 		public string recipeName;
 		public ItemSO[] inputs;
 		public ItemSO output;
+		public Sprite sprite;
 		public float cratingTime = 1f;
 
 		public BlobAssetReference<RecipeBlob> CreateRecipeData()
@@ -35,6 +36,12 @@ namespace FantasyLogistics
 			var result = builder.CreateBlobAssetReference<RecipeBlob>(Allocator.Persistent);
 			builder.Dispose();
 			return result;
+		}
+
+		public Sprite GetSprite()
+		{
+			if (sprite) return sprite;
+			return output.itemSprite;
 		}
 
 	}

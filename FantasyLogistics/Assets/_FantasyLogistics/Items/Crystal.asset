@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Crystal
   m_EditorClassIdentifier: Assembly-CSharp:FantasyLogistics:ItemSO
   itemName: Mana Crystal
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: -2999939615148447382, guid: 14fe7e724342a6842957ebcb344f4831, type: 3}
   amout: 1

@@ -7,6 +7,8 @@ namespace FantasyLogistics
 	{
 		public float moveSpeed;
 
+		public Camera mainCam;
+
 		private Vector2 direction;
 		private Rigidbody rb;
 
@@ -52,8 +54,13 @@ namespace FantasyLogistics
 
 		public void OnInteract(InputAction.CallbackContext context)
 		{
-			Debug.Log("Interacted");
+			if (context.action.triggered && context.ReadValueAsButton())
+			{
+				var mousePosition = Mouse.current.position.ReadValue();
+				var worldPos = mainCam.ScreenToWorldPoint((Vector3)mousePosition);
+				worldPos.z = 0;
+				Debug.Log($"Mouse at {worldPos}");
+			}
 		}
-
 	}
 }

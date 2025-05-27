@@ -1,0 +1,27 @@
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+namespace FantasyLogistics
+{
+	public class RecipeList : MonoBehaviour
+	{
+		public RecipeSO[] recipes;
+		public GameObject recipeUIPrefab;
+		public Transform recipeList;
+
+		private void Start()
+		{
+			foreach (var recipe in recipes)
+			{
+				GameObject recipeUIElement = Instantiate(recipeUIPrefab, recipeList);
+				recipeUIElement.transform.position = Vector3.zero;
+				var image = recipeUIElement.GetComponentInChildren<Image>();
+				image.sprite = recipe.GetSprite();
+
+				var name = recipeUIElement.GetComponentInChildren<TextMeshProUGUI>();
+				name.text = recipe.recipeName;
+			}
+		}
+	}
+}

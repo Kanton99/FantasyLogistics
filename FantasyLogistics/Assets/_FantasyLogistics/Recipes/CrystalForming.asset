@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7905343a577bcb449d9ad3b51ac1c56, type: 3}
   m_Name: CrystalForming
   m_EditorClassIdentifier: 
-  recipeName: 
+  recipeName: Crystal form
   inputs: []
   output: {fileID: 11400000, guid: b15f5e410a195d741aa915cea541db75, type: 2}
+  sprite: {fileID: 0}
   cratingTime: 1

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Powder
   m_EditorClassIdentifier: Assembly-CSharp:FantasyLogistics:ItemSO
   itemName: Powder
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 6236927192717015272, guid: 14fe7e724342a6842957ebcb344f4831, type: 3}
   amout: 1
