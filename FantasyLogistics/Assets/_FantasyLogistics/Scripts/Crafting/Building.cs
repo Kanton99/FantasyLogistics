@@ -7,7 +7,7 @@ namespace FantasyLogistics
 	public class Building : MonoBehaviour
 	{
 		public RecipeSO recipe;
-		private Entity recipeEntity;
+		public Entity recipeEntity { get; private set; }
 		private EntityManager _entityManager;
 
 		void Start()

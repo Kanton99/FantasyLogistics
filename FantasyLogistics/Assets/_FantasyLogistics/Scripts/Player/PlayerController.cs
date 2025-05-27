@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 namespace FantasyLogistics
 {
@@ -59,8 +60,40 @@ namespace FantasyLogistics
 				var mousePosition = Mouse.current.position.ReadValue();
 				var worldPos = mainCam.ScreenToWorldPoint((Vector3)mousePosition);
 				worldPos.z = 0;
-				Debug.Log($"Mouse at {worldPos}");
+
+				Vector3 from = mainCam.transform.position;
+				Vector3 direction = (worldPos - mainCam.transform.position) * 1.5f;
+				RaycastHit[] hits = Physics.RaycastAll(from, direction);
+				Vector3[] ray = { from, direction };
+				// rays.Add(ray);
+
+				if (hits.Length > 0)
+				{
+					Debug.Log($"Building hit");
+					Building building = hits[0].transform.GetComponent<Building>();
+					if (building)
+					{
+						UIManager.Instance.OpenBuildingUI(building);
+						return;
+					}
+					else
+					{
+						Debug.Log($"Hit: {hits[0].transform.name}");
+					}
+				}
+				else Debug.Log("No building found");
 			}
+		}
+
+		private List<Vector3[]> rays = new List<Vector3[]>();
+
+		private void OnDrawGizmos()
+		{
+			foreach (Vector3[] pairs in rays)
+			{
+				Gizmos.DrawRay(pairs[0], pairs[1]);
+			}
+
 		}
 	}
 }

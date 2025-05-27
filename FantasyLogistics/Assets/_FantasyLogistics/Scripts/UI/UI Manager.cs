@@ -4,7 +4,7 @@ namespace FantasyLogistics
 {
 	public class UIManager : MonoBehaviour
 	{
-		public UIManager Instance { get; private set; }
+		public static UIManager Instance { get; private set; }
 
 		private void Awake()
 		{
@@ -16,5 +16,18 @@ namespace FantasyLogistics
 			Instance = this;
 		}
 
+		[Header("UI Panels")]
+		public GameObject GolemUI;
+		public GameObject BuildingUI;
+		public GameObject PlayerInventory;
+
+
+		public void OpenBuildingUI(Building building)
+		{
+			GolemUI.SetActive(false);
+			PlayerInventory.SetActive(false);
+			BuildingUI.GetComponentInChildren<RecipeStateUI>().SetupUI(building);
+			BuildingUI.SetActive(true);
+		}
 	}
 }
