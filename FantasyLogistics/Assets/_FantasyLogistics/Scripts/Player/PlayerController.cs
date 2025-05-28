@@ -64,7 +64,8 @@ namespace FantasyLogistics
 
 				Vector3 from = mainCam.transform.position;
 				Vector3 direction = (worldPos - mainCam.transform.position) * 1.5f;
-				RaycastHit[] hits = Physics.RaycastAll(from, direction);
+				RaycastHit[] hits = Physics.RaycastAll(origin: from, direction: direction, maxDistance: 50f);
+				Debug.Log(hits);
 				Vector3[] ray = { from, direction };
 				// rays.Add(ray);
 
@@ -94,6 +95,17 @@ namespace FantasyLogistics
 				Gizmos.DrawRay(pairs[0], pairs[1]);
 			}
 
+		}
+
+		public void OnToggleInventory(InputAction.CallbackContext context)
+		{
+			if (UIOpen)
+			{
+				UIManager.Instance.CloseAll();
+				UIOpen = false;
+			}
+			// else:
+			// 	UIManager.Instance.OpenPlayerINvetory()
 		}
 	}
 }

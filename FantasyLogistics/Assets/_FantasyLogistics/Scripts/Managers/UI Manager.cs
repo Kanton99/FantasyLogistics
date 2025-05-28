@@ -21,6 +21,12 @@ namespace FantasyLogistics
 		public GameObject BuildingUI;
 		public GameObject PlayerInventory;
 
+		public void CloseAll()
+		{
+			GolemUI.SetActive(false);
+			PlayerInventory.SetActive(false);
+			BuildingUI.SetActive(false);
+		}
 
 		public void OpenBuildingUI(Building building)
 		{
