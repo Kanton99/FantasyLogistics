@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2836494312683939779}
   - component: {fileID: 3125036276653731572}
   - component: {fileID: 4821375768771539345}
+  - component: {fileID: 1408731007095504322}
   m_Layer: 6
   m_Name: Building
   m_TagString: Untagged
@@ -123,3 +124,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.31, y: 0.31, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1408731007095504322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402885818218369224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69774b53a53ba948b59b4d73ac17c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 893615286, guid: ab07ef1506b1b5c4198be95d8afe2060, type: 3}
+  RegisterSpriteData:
+    SpriteRenderData:
+      Material: {fileID: 2100000, guid: d84d30a8fe326be4f98378dcb774dabf, type: 2}
+      PropertiesSet: {fileID: 11400000, guid: 99d3374c56bc41b408704563b4c0e25e, type: 2}
+  OverrideTextureFromSprite: 1
+  RenderSettings:
+    Pivot:
+      x: 0.5
+      y: 0.5
+    Size:
+      x: 1
+      y: 1
+    LockSize: 0
+    DrawMode: 0
+    TilingAndOffset:
+      x: 1
+      y: 1
+      z: 0
+      w: 0
+    Flip:
+      x: 0
+      y: 0
+  Sorting:
+    StaticSorting: 0
+    SortingIndex: 0
+    SortingLayer: 0
