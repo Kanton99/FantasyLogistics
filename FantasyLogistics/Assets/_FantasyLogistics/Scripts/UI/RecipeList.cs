@@ -10,6 +10,8 @@ namespace FantasyLogistics
 		public GameObject recipeUIPrefab;
 		public Transform recipeList;
 
+		public Building activeBuilding;
+
 		private void Start()
 		{
 			foreach (var recipe in recipes)
@@ -21,6 +23,13 @@ namespace FantasyLogistics
 
 				var name = recipeUIElement.GetComponentInChildren<TextMeshProUGUI>();
 				name.text = recipe.recipeName;
+
+
+				recipeUIElement.GetComponentInChildren<Button>().onClick.AddListener(delegate ()
+				{
+					activeBuilding.SetRecipe(recipe);
+					transform.parent.GetComponentInChildren<RecipeStateUI>().SetupUI(activeBuilding);
+				});
 			}
 		}
 	}

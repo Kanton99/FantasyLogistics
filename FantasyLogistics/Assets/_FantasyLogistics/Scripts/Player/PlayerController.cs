@@ -12,6 +12,7 @@ namespace FantasyLogistics
 
 		private Vector2 direction;
 		private Rigidbody rb;
+		private bool UIOpen = false;
 
 
 		private PlayerActions_Actions m_Actions;                  // Source code representation of asset.
@@ -55,7 +56,7 @@ namespace FantasyLogistics
 
 		public void OnInteract(InputAction.CallbackContext context)
 		{
-			if (context.action.triggered && context.ReadValueAsButton())
+			if (!UIOpen && context.action.triggered && context.ReadValueAsButton())
 			{
 				var mousePosition = Mouse.current.position.ReadValue();
 				var worldPos = mainCam.ScreenToWorldPoint((Vector3)mousePosition);
@@ -69,11 +70,11 @@ namespace FantasyLogistics
 
 				if (hits.Length > 0)
 				{
-					Debug.Log($"Building hit");
 					Building building = hits[0].transform.GetComponent<Building>();
 					if (building)
 					{
 						UIManager.Instance.OpenBuildingUI(building);
+						UIOpen = true;
 						return;
 					}
 					else
@@ -81,7 +82,6 @@ namespace FantasyLogistics
 						Debug.Log($"Hit: {hits[0].transform.name}");
 					}
 				}
-				else Debug.Log("No building found");
 			}
 		}
 

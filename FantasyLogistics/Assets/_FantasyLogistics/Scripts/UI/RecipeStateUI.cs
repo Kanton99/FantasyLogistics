@@ -11,7 +11,7 @@ namespace FantasyLogistics
 
 		public Slider progress;
 
-		private Building building;
+		public Building building { get; private set; }
 		EntityManager entityManager;
 
 		public void SetupUI(Building building)
@@ -22,6 +22,7 @@ namespace FantasyLogistics
 				recipeName.text = this.building.recipe.recipeName;
 				recipeImage.sprite = this.building.recipe.GetSprite();
 			}
+			transform.parent.GetComponentInChildren<RecipeList>().activeBuilding = building;
 		}
 
 		public void SetBuildingRecipe(RecipeSO recipe)
