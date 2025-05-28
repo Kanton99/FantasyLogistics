@@ -3,7 +3,7 @@ using Unity.Mathematics;
 
 namespace FantasyLogistics
 {
-	class GolemInstantiatorAuthoring : MonoBehaviour
+	class GolemSpawnerAuthoring : MonoBehaviour
 	{
 		public GameObject golemEntityPrefab;
 		public float3 position;

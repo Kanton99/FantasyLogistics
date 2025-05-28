@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.Entities;
+using Unity.Collections;
+using Unity.Physics;
 
 namespace FantasyLogistics
 {
@@ -64,24 +67,32 @@ namespace FantasyLogistics
 
 				Vector3 from = mainCam.transform.position;
 				Vector3 direction = (worldPos - mainCam.transform.position) * 1.5f;
-				RaycastHit[] hits = Physics.RaycastAll(origin: from, direction: direction, maxDistance: 50f);
-				Debug.Log(hits);
-				Vector3[] ray = { from, direction };
-				// rays.Add(ray);
 
-				if (hits.Length > 0)
+				EntityQueryBuilder builder = new EntityQueryBuilder(Allocator.Temp).WithAll<PhysicsWorldSingleton>();
+
+				EntityQuery singletonQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(builder);
+				var collisionWorld = singletonQuery.GetSingleton<PhysicsWorldSingleton>().CollisionWorld;
+
+				singletonQuery.Dispose();
+
+				RaycastInput input = new RaycastInput()
 				{
-					Building building = hits[0].transform.GetComponent<Building>();
-					if (building)
+					Start = from,
+					End = direction,
+					Filter = new CollisionFilter()
 					{
-						UIManager.Instance.OpenBuildingUI(building);
-						UIOpen = true;
-						return;
+						BelongsTo = ~0u,
+						CollidesWith = 1 << 6,
+						GroupIndex = 0
 					}
-					else
-					{
-						Debug.Log($"Hit: {hits[0].transform.name}");
-					}
+				};
+
+				Unity.Physics.RaycastHit hit = new Unity.Physics.RaycastHit();
+				bool haveHit = (collisionWorld.CastRay(input, out hit));
+
+				if (haveHit)
+				{
+					Debug.Log("Hit in ECS");
 				}
 			}
 		}

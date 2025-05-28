@@ -12,9 +12,9 @@ namespace FantasyLogistics
 
 	}
 
-	class GolemInstantiatorBaker : Baker<GolemInstantiatorAuthoring>
+	class GolemInstantiatorBaker : Baker<GolemSpawnerAuthoring>
 	{
-		public override void Bake(GolemInstantiatorAuthoring authoring)
+		public override void Bake(GolemSpawnerAuthoring authoring)
 		{
 			var entity = GetEntity(TransformUsageFlags.None);
 			AddComponent(entity, new GolemInstantiator
