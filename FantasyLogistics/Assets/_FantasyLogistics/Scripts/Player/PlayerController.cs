@@ -68,31 +68,21 @@ namespace FantasyLogistics
 				Vector3 from = mainCam.transform.position;
 				Vector3 direction = (worldPos - mainCam.transform.position) * 1.5f;
 
-				EntityQueryBuilder builder = new EntityQueryBuilder(Allocator.Temp).WithAll<PhysicsWorldSingleton>();
-
-				EntityQuery singletonQuery = World.DefaultGameObjectInjectionWorld.EntityManager.CreateEntityQuery(builder);
-				var collisionWorld = singletonQuery.GetSingleton<PhysicsWorldSingleton>().CollisionWorld;
-
-				singletonQuery.Dispose();
-
-				RaycastInput input = new RaycastInput()
+				var hit = Utils.ECSPhysics.RayCast(from, direction);
+				if (hit.HasValue)
 				{
-					Start = from,
-					End = direction,
-					Filter = new CollisionFilter()
+					Entity entity = hit.Value;
+					EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+					if (entityManager.HasComponent<BuildingComponent>(entity))
 					{
-						BelongsTo = ~0u,
-						CollidesWith = 1 << 6,
-						GroupIndex = 0
+						// BuildingComponent building = entityManager.GetComponentData<BuildingComponent>(entity);
+						Debug.Log($"Building: {entityManager.GetComponentData<BuildingComponent>(entity).GetHashCode()}");
 					}
-				};
-
-				Unity.Physics.RaycastHit hit = new Unity.Physics.RaycastHit();
-				bool haveHit = (collisionWorld.CastRay(input, out hit));
-
-				if (haveHit)
-				{
-					Debug.Log("Hit in ECS");
+					else if (entityManager.HasComponent<GolemInvetory>(entity))
+					{
+						GolemInvetory golem = entityManager.GetComponentData<GolemInvetory>(entity);
+						Debug.Log($"Golem: {golem.GetHashCode()}");
+					}
 				}
 			}
 		}

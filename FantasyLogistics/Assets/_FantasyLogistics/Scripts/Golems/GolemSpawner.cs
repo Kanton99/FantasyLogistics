@@ -49,6 +49,7 @@ namespace FantasyLogistics
 						speed = 0.1f,
 						status = Status.MOVING
 					});
+					ecb.AddComponent(newGolem, new GolemInvetory());
 
 
 					instantiator.ValueRW.place = false;

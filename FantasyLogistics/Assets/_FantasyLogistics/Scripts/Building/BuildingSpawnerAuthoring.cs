@@ -40,6 +40,7 @@ namespace FantasyLogistics
 
 				Entity newBuilding = ecb.Instantiate(buildingSpawner.buildingPrefab);
 				ecb.SetComponent(newBuilding, LocalTransform.FromPosition(buildingSpawner.position));
+				ecb.AddComponent(newBuilding, new BuildingComponent());
 
 
 				buildingSpawner.spawn = false;
