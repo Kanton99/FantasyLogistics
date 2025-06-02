@@ -40,6 +40,7 @@ namespace FantasyLogistics
 		public BlobArray<ItemBlob> inputs;
 		public ItemBlob output;
 		public float craftingTime;
+		public FixedString32Bytes name;
 	}
 
 	public struct ItemBlob

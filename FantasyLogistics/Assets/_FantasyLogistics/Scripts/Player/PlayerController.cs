@@ -77,7 +77,7 @@ namespace FantasyLogistics
 					if (entityManager.HasComponent<BuildingComponent>(entity))
 					{
 						// BuildingComponent building = entityManager.GetComponentData<BuildingComponent>(entity);
-						Debug.Log($"Building: {entityManager.GetComponentData<BuildingComponent>(entity).ToString()}");
+						UIManager.Instance.OpenBuildingUI(entity);
 					}
 					else if (entityManager.HasComponent<GolemInvetory>(entity))
 					{

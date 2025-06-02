@@ -371,7 +371,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb17612b47bebfd4e9847eee6eaeffe1, type: 2}
   recipeUIPrefab: {fileID: 8907010232112795170, guid: ed0fee0013f3d654182230161f97b90f, type: 3}
   recipeList: {fileID: 179335230}
-  activeBuilding: {fileID: 0}
 --- !u!1001 &198048769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1271,6 +1270,7 @@ GameObject:
   - component: {fileID: 1055792184}
   - component: {fileID: 1055792183}
   - component: {fileID: 1055792185}
+  - component: {fileID: 1055792186}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -1323,6 +1323,21 @@ MonoBehaviour:
   items:
   - {fileID: 11400000, guid: b15f5e410a195d741aa915cea541db75, type: 2}
   - {fileID: 11400000, guid: 3b3079b804714044e8bd1161d96cf138, type: 2}
+--- !u!114 &1055792186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1055792182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce7b93c73fbe661478df7953f80f3eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recipes:
+  - {fileID: 11400000, guid: fb17612b47bebfd4e9847eee6eaeffe1, type: 2}
+  - {fileID: 11400000, guid: dd598f9658769524bafb45e8d219b8fe, type: 2}
 --- !u!1 &1059824817
 GameObject:
   m_ObjectHideFlags: 0

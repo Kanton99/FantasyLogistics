@@ -1,3 +1,4 @@
+using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -10,7 +11,7 @@ namespace FantasyLogistics
 		public GameObject recipeUIPrefab;
 		public Transform recipeList;
 
-		public Building activeBuilding;
+		public Entity activeBuilding;
 
 		private void Start()
 		{
@@ -27,8 +28,8 @@ namespace FantasyLogistics
 
 				recipeUIElement.GetComponentInChildren<Button>().onClick.AddListener(delegate ()
 				{
-					activeBuilding.SetRecipe(recipe);
-					transform.parent.GetComponentInChildren<RecipeStateUI>().SetupUI(activeBuilding);
+					var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+					transform.parent.GetComponentInChildren<RecipeStateUI>().SetBuildingRecipe(recipe);
 				});
 			}
 		}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Entities;
 
 namespace FantasyLogistics
 {
@@ -28,12 +29,12 @@ namespace FantasyLogistics
 			BuildingUI.SetActive(false);
 		}
 
-		public void OpenBuildingUI(Building building)
+		public void OpenBuildingUI(Entity building)
 		{
 			GolemUI.SetActive(false);
 			PlayerInventory.SetActive(false);
-			BuildingUI.GetComponentInChildren<RecipeStateUI>().SetupUI(building);
 			BuildingUI.SetActive(true);
+			BuildingUI.GetComponentInChildren<RecipeStateUI>().SetupUI(building);
 		}
 	}
 }
