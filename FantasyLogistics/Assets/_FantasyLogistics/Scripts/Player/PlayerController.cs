@@ -68,6 +68,7 @@ namespace FantasyLogistics
 				Vector3 from = mainCam.transform.position;
 				Vector3 direction = (worldPos - mainCam.transform.position) * 1.5f;
 
+				rays.Add(new Vector3[] { from, direction });
 				var hit = Utils.ECSPhysics.RayCast(from, direction);
 				if (hit.HasValue)
 				{
@@ -76,7 +77,7 @@ namespace FantasyLogistics
 					if (entityManager.HasComponent<BuildingComponent>(entity))
 					{
 						// BuildingComponent building = entityManager.GetComponentData<BuildingComponent>(entity);
-						Debug.Log($"Building: {entityManager.GetComponentData<BuildingComponent>(entity).GetHashCode()}");
+						Debug.Log($"Building: {entityManager.GetComponentData<BuildingComponent>(entity).ToString()}");
 					}
 					else if (entityManager.HasComponent<GolemInvetory>(entity))
 					{
@@ -91,9 +92,12 @@ namespace FantasyLogistics
 
 		private void OnDrawGizmos()
 		{
+			float intensity = 1;
 			foreach (Vector3[] pairs in rays)
 			{
+				Gizmos.color = Color.white * (intensity / rays.Count);
 				Gizmos.DrawRay(pairs[0], pairs[1]);
+				intensity++;
 			}
 
 		}

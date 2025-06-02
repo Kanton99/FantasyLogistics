@@ -19,7 +19,7 @@ namespace FantasyLogistics.Utils
 			RaycastInput input = new RaycastInput()
 			{
 				Start = from,
-				End = direction,
+				End = from + direction,
 				Filter = new CollisionFilter()
 				{
 					BelongsTo = ~0u,

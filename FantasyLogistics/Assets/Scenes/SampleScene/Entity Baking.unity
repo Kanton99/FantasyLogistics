@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPrefab: {fileID: 4402885818218369224, guid: 96a53498cd524d54384620206fabcb54, type: 3}
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 2.4, y: 0, z: 0}
   spawn: 0
 --- !u!1 &1821811202
 GameObject:

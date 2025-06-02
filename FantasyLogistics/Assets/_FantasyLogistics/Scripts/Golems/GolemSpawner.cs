@@ -1,3 +1,4 @@
+using Unity.Physics;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Burst;
@@ -46,7 +47,7 @@ namespace FantasyLogistics
 					ecb.SetComponent(newGolem, new GolemMovement
 					{
 						target = float3.zero,
-						speed = 0.1f,
+						speed = 1f,
 						status = Status.MOVING
 					});
 					ecb.AddComponent(newGolem, new GolemInvetory());

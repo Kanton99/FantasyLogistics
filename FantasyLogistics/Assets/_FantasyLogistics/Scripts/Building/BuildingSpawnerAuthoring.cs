@@ -35,15 +35,13 @@ namespace FantasyLogistics
 
 			if (buildingSpawner.spawn)
 			{
+				buildingSpawner.spawn = false;
 				var ecbSystem = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
 				EntityCommandBuffer ecb = ecbSystem.CreateCommandBuffer(state.WorldUnmanaged);
 
 				Entity newBuilding = ecb.Instantiate(buildingSpawner.buildingPrefab);
 				ecb.SetComponent(newBuilding, LocalTransform.FromPosition(buildingSpawner.position));
 				ecb.AddComponent(newBuilding, new BuildingComponent());
-
-
-				buildingSpawner.spawn = false;
 			}
 		}
 
