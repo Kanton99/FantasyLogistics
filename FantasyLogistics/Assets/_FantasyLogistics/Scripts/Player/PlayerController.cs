@@ -78,11 +78,13 @@ namespace FantasyLogistics
 					{
 						// BuildingComponent building = entityManager.GetComponentData<BuildingComponent>(entity);
 						UIManager.Instance.OpenBuildingUI(entity);
+						UIOpen = true;
 					}
 					else if (entityManager.HasComponent<GolemInvetory>(entity))
 					{
 						GolemInvetory golem = entityManager.GetComponentData<GolemInvetory>(entity);
 						Debug.Log($"Golem: {golem.GetHashCode()}");
+						UIOpen = true;
 					}
 				}
 			}
