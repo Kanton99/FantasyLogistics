@@ -46,7 +46,7 @@ namespace FantasyLogistics
 			SetupUI(building);
 		}
 
-		private void Start()
+		private void Awake()
 		{
 			entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 		}
@@ -106,7 +106,7 @@ namespace FantasyLogistics
 
 			var recipeEntity = entityManager.CreateEntity(recipeEntityArchetype);
 
-			var recipyBlob = recipe.CreateRecipeData();
+			ref var recipyBlob = ref recipe.CreateRecipeData();
 			var builder = new BlobBuilder(Allocator.Temp);
 			// Initialize with data
 			entityManager.SetComponentData(recipeEntity, new RecipeData
