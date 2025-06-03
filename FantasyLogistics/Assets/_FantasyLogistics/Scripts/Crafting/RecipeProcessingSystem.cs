@@ -17,8 +17,8 @@ namespace FantasyLogistics
 
 				if (recipeState.ValueRO.isProcessing)
 				{
-					recipeState.ValueRW.timeRemaining -= deltaTime;
-					if (recipeState.ValueRO.timeRemaining <= 0)
+					recipeState.ValueRW.timeRemaining += deltaTime;
+					if (recipeState.ValueRO.timeRemaining >= recipeData.ValueRO.recipeBlob.Value.craftingTime)
 					{
 						recipeState.ValueRW.isProcessing = false;
 						recipeState.ValueRW.timeRemaining = 0;
@@ -44,7 +44,7 @@ namespace FantasyLogistics
 							recipeInputs.ElementAt(i) = input;
 						}
 						recipeState.ValueRW.isProcessing = true;
-						recipeState.ValueRW.timeRemaining = recipeBlob.Value.craftingTime;
+						// recipeState.ValueRW.timeRemaining = recipeBlob.Value.craftingTime;
 					}
 					// else Debug.Log("Can't start recipe, not enough resources");
 				}

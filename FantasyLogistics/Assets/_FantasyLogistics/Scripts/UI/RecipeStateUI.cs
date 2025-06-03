@@ -55,8 +55,7 @@ namespace FantasyLogistics
 		{
 			if (entityManager.Exists(recipeEntity))
 			{
-				var recipeState = entityManager.GetComponentData<RecipeState>(recipeEntity);
-				progress.value = (entityManager.GetComponentData<RecipeState>(recipeEntity).timeRemaining) / entityManager.GetComponentData<RecipeData>(building).recipeBlob.Value.craftingTime;
+				progress.value = (entityManager.GetComponentData<RecipeState>(recipeEntity).timeRemaining) / entityManager.GetComponentData<RecipeData>(recipeEntity).recipeBlob.Value.craftingTime;
 
 				if (progress.value < 0.1f)
 				{
