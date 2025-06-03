@@ -13,13 +13,14 @@ namespace FantasyLogistics
 		public Sprite sprite;
 		public float cratingTime = 1f;
 
-		public ref RecipeBlob CreateRecipeData()
+		public BlobAssetReference<RecipeBlob> CreateRecipeData()
 		{
 			var builder = new BlobBuilder(Allocator.Temp);
 
 			ref RecipeBlob recipeData = ref builder.ConstructRoot<RecipeBlob>();
 
 			recipeData.craftingTime = cratingTime;
+			recipeData.name = recipeName;
 			recipeData.output = output.CreateItemData().Value;
 
 			BlobBuilderArray<ItemBlob> arrayBuilder = builder.Allocate(
@@ -32,7 +33,9 @@ namespace FantasyLogistics
 				arrayBuilder[i] = inputs[i].CreateItemData().Value;
 			}
 
-			return ref recipeData;
+			var result = builder.CreateBlobAssetReference<RecipeBlob>(Allocator.Persistent);
+			builder.Dispose();
+			return result;
 		}
 
 		public Sprite GetSprite()

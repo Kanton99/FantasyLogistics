@@ -106,12 +106,10 @@ namespace FantasyLogistics
 
 			var recipeEntity = entityManager.CreateEntity(recipeEntityArchetype);
 
-			ref var recipyBlob = ref recipe.CreateRecipeData();
-			var builder = new BlobBuilder(Allocator.Temp);
 			// Initialize with data
 			entityManager.SetComponentData(recipeEntity, new RecipeData
 			{
-				recipeBlob = builder.CreateBlobAssetReference<RecipeBlob>(Allocator.Persistent)
+				recipeBlob = RecipeManager.Instance.GetRecipeBlobAsset(recipe),
 			});
 
 			entityManager.SetComponentData(recipeEntity, new RecipeState
