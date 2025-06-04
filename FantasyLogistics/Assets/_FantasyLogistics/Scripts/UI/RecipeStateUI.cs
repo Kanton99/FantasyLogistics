@@ -3,7 +3,8 @@ using Unity.Entities;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Mathematics;
-using Unity.Collections;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace FantasyLogistics
 {
@@ -21,31 +22,57 @@ namespace FantasyLogistics
 		private Entity recipeEntity;
 		private EntityManager entityManager;
 
+		private TextMeshProUGUI outputAmount;
+		private List<TextMeshProUGUI> inputsAmounts = new List<TextMeshProUGUI>();
+
 		public void SetupUI(Entity building)
 		{
+			StartCoroutine(SetupUICoroutine(building));
+		}
+		public IEnumerator SetupUICoroutine(Entity building)
+		{
+			yield return null;
+			ClearUI();
 			this.building = building;
+			var buildingComponent = entityManager.GetComponentData<BuildingComponent>(building);
 			transform.parent.GetComponentInChildren<RecipeList>().activeBuilding = building;
 			if (entityManager.Exists(entityManager.GetComponentData<BuildingComponent>(building).recipeEntity))
 			{
 				recipeEntity = entityManager.GetComponentData<BuildingComponent>(building).recipeEntity;
-				recipeName.text = entityManager.GetComponentData<RecipeData>(recipeEntity).recipeBlob.Value.name.ToString();
+				recipeName.text = entityManager.GetComponentData<RecipeData>(entityManager.GetComponentData<BuildingComponent>(building).recipeEntity).recipeBlob.Value.name.ToString();
 				recipeImage.sprite = RecipeManager.Instance.recipeMap[recipeName.text].GetSprite();
+
+
+				var inputs = entityManager.GetBuffer<RecipeInputs>(recipeEntity);
+				var output = entityManager.GetComponentData<RecipeOutput>(recipeEntity);
+
+				foreach (Transform child in inputsSlotsParent.transform)
+				{
+					Destroy(child.gameObject);
+				}
+				for (int i = 0; i < inputs.Length; i++)
+				{
+					var newSlot = Instantiate(inputSlotPrefab, inputsSlotsParent.transform);
+					newSlot.GetComponent<Image>().sprite = ItemManager.Instance.itemMap[inputs[i].itemName.ToString()].itemSprite;
+					inputsAmounts.Add(newSlot.GetComponentInChildren<TextMeshProUGUI>());
+				}
+				outputSlot.GetComponent<Image>().sprite = ItemManager.Instance.itemMap[output.itemName.ToString()].itemSprite;
 			}
 		}
+
+
 
 		public void SetBuildingRecipe(RecipeSO recipe)
 		{
 			BuildingComponent newBC = new BuildingComponent();
-			if (entityManager.Exists(recipeEntity))
-				entityManager.DestroyEntity(recipeEntity);
+			if (entityManager.Exists(entityManager.GetComponentData<BuildingComponent>(building).recipeEntity))
+				entityManager.DestroyEntity(entityManager.GetComponentData<BuildingComponent>(building).recipeEntity);
 
 			newBC.recipeEntity = CreateRecipeEntity(recipe);
 
 			entityManager.SetComponentData(building, newBC);
-
 			SetupUI(building);
 		}
-
 		private void Awake()
 		{
 			entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -55,28 +82,13 @@ namespace FantasyLogistics
 		{
 			if (entityManager.Exists(recipeEntity))
 			{
-				progress.value = (entityManager.GetComponentData<RecipeState>(recipeEntity).timeRemaining) / entityManager.GetComponentData<RecipeData>(recipeEntity).recipeBlob.Value.craftingTime;
+				progress.value = (entityManager.GetComponentData<RecipeState>(recipeEntity).timeRemaining) / 
+					entityManager.GetComponentData<RecipeData>(recipeEntity).recipeBlob.Value.craftingTime;
 
 				if (progress.value < 0.1f)
 				{
 					var inputs = entityManager.GetBuffer<RecipeInputs>(recipeEntity);
 					var output = entityManager.GetComponentData<RecipeOutput>(recipeEntity);
-
-					if (inputsSlotsParent.transform.childCount != inputs.Length)
-					{
-						foreach (Transform child in inputsSlotsParent.transform)
-						{
-							Destroy(child.gameObject);
-						}
-						for (int i = 0; i < inputs.Length; i++)
-						{
-							var newSlot = Instantiate(inputSlotPrefab, inputsSlotsParent.transform);
-							newSlot.GetComponent<Image>().sprite = ItemManager.Instance.itemMap[inputs[i].itemName.ToString()].itemSprite;
-							newSlot.GetComponentInChildren<TextMeshProUGUI>().text = inputs[i].amount.ToString();
-						}
-						outputSlot.GetComponent<Image>().sprite = ItemManager.Instance.itemMap[output.itemName.ToString()].itemSprite;
-					}
-					else
 					{
 						for (int i = 0; i < inputs.Length; i++)
 						{
@@ -86,9 +98,24 @@ namespace FantasyLogistics
 						}
 						outputSlot.GetComponentInChildren<TextMeshProUGUI>().text = output.amount.ToString();
 					}
-
 				}
 			}
+		}
+
+		private void ClearUI()
+		{
+			recipeImage.sprite = null;
+			recipeName.text = null;
+			for(int i = 0;i<inputsSlotsParent.transform.childCount;i++)
+			{
+				Transform child = inputsSlotsParent.transform.GetChild(i);
+				GameObject.Destroy(child.gameObject);
+			}
+			inputsAmounts.Clear();
+			//GameObject.Destroy(outputSlot.transform.GetChild(0).gameObject);
+			outputSlot.GetComponentInChildren<Image>().sprite = null;
+			if(outputAmount) outputAmount.text = null;
+
 		}
 
 		private Entity CreateRecipeEntity(RecipeSO recipe)

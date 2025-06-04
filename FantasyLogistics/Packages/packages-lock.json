@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.entities": "1.0.0-pre.65"
       },
-      "hash": "f1df6079527a5379dff5118a5c11548ee108891a"
+      "hash": "8e6a8f0a88398e18bed376d0ee09ec2059fb1bfa"
     },
     "com.tonymax.nsprites.foundation": {
       "version": "https://github.com/Antoshidza/NSprites-Foundation.git",
@@ -330,7 +330,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.7",
+      "version": "1.8.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {

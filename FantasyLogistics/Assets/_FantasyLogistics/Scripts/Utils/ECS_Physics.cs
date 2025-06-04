@@ -29,7 +29,7 @@ namespace FantasyLogistics.Utils
 			};
 
 			Unity.Physics.RaycastHit hit = new Unity.Physics.RaycastHit();
-			bool haveHit = (collisionWorld.CastRay(input, out hit));
+			bool haveHit = collisionWorld.CastRay(input, out hit);
 
 			if (haveHit)
 			{

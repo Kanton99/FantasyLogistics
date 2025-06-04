@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Crystal grind
   inputs:
-  - {fileID: 11400000, guid: b15f5e410a195d741aa915cea541db75, type: 2}
+  - {fileID: 11400000, guid: 5c291fdb521a7ad4c99aa9ea02c8b363, type: 2}
   output: {fileID: 11400000, guid: 3b3079b804714044e8bd1161d96cf138, type: 2}
   sprite: {fileID: 0}
   cratingTime: 1
