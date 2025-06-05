@@ -32,7 +32,10 @@ namespace FantasyLogistics
 					for (int i = 0; i < recipeInputs.Length; i++)
 					{
 						if (recipeInputs[i].amount < recipeBlob.Value.inputs[i].amount)
+						{
 							canStart = false;
+							break;
+						}
 					}
 
 					if (canStart)
