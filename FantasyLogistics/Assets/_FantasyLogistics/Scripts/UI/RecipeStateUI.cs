@@ -104,6 +104,7 @@ namespace FantasyLogistics
 
 		private void ClearUI()
 		{
+			recipeEntity = Entity.Null;
 			recipeImage.sprite = null;
 			recipeName.text = null;
 			for(int i = 0;i<inputsSlotsParent.transform.childCount;i++)

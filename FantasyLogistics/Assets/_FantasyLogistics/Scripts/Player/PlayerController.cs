@@ -55,6 +55,7 @@ namespace FantasyLogistics
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			direction = context.ReadValue<Vector2>();
+			rb.linearVelocity = direction * moveSpeed * Time.deltaTime;
 		}
 
 		public void OnInteract(InputAction.CallbackContext context)
@@ -84,6 +85,7 @@ namespace FantasyLogistics
 					{
 						GolemInvetory golem = entityManager.GetComponentData<GolemInvetory>(entity);
 						Debug.Log($"Golem: {golem.GetHashCode()}");
+
 						UIOpen = true;
 					}
 				}
