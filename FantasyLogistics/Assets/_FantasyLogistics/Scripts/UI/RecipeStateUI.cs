@@ -159,7 +159,7 @@ namespace FantasyLogistics
 				recipeInputs.Add(new RecipeInputs
 				{
 					itemName = item.itemName,
-					amount = item.amout
+					amount = 0
 				});
 			}
 
