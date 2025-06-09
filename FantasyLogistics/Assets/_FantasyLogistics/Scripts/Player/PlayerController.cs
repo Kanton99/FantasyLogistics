@@ -55,7 +55,7 @@ namespace FantasyLogistics
 		public void OnMove(InputAction.CallbackContext context)
 		{
 			direction = context.ReadValue<Vector2>();
-			rb.linearVelocity = direction * moveSpeed * Time.deltaTime;
+			Debug.Log($"Moving {direction}");
 		}
 
 		public void OnInteract(InputAction.CallbackContext context)

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1906424090280367639}
   - component: {fileID: 6624553387528934217}
   - component: {fileID: -4210538283581450212}
-  - component: {fileID: 4941346184537274760}
   m_Layer: 6
   m_Name: Golem
   m_TagString: Untagged
@@ -47,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69774b53a53ba948b59b4d73ac17c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1935584832, guid: b1a1ecddb4c078c4699c75868cad5095, type: 3}
+  Sprite: {fileID: -3030794605390870092, guid: d8b756a0f999fc6da94dede1bf578421, type: 3}
   RegisterSpriteData:
     SpriteRenderData:
       Material: {fileID: 2100000, guid: d84d30a8fe326be4f98378dcb774dabf, type: 2}
@@ -120,29 +119,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4941346184537274760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1976208425824763192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb54ea4f67dc17342bcd49954c53502d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DrawColliders: 0
-  DrawColliderEdges: 1
-  DrawColliderAabbs: 0
-  DrawMassProperties: 0
-  DrawBroadphase: 0
-  DrawContacts: 0
-  DrawCollisionEvents: 0
-  DrawTriggerEvents: 0
-  DrawJoints: 0
-  ColliderDisplayMode: 0
-  ColliderEdgesDisplayMode: 0
-  ColliderAabbDisplayMode: 0
