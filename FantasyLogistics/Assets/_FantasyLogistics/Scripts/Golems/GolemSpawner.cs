@@ -51,6 +51,7 @@ namespace FantasyLogistics
 						status = Status.MOVING
 					});
 					ecb.AddComponent(newGolem, new GolemInvetory());
+					ecb.AddComponent(newGolem, new GolemInvetoryFilter());
 
 
 					instantiator.ValueRW.place = false;
