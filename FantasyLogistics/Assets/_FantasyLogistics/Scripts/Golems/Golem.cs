@@ -18,6 +18,11 @@ namespace FantasyLogistics
 		public Status status;
 	}
 
+	public struct GolemInvetoryFilter : IComponentData
+	{
+		public FixedString32Bytes filteredItem;
+	}
+
 	public enum Status
 	{
 		MOVING,
