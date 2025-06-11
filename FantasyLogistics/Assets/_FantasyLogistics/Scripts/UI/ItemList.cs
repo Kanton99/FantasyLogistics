@@ -10,6 +10,7 @@ namespace FantasyLogistics
 		public ItemSO[] items;
 		public GameObject itemUIPrefab;
 		public Transform itemList;
+		public GolemUI golemUI;
 
 		public Entity activeGolem;
 
@@ -25,12 +26,13 @@ namespace FantasyLogistics
 				var name = itemement.GetComponentInChildren<TextMeshProUGUI>();
 				name.text = item.itemName;
 
-				var button = itemement.GetComponent<Button>();
-				button.transform.parent.gameObject.SetActive(true);
+				var button = itemement.GetComponentInChildren<Button>();
+				button.gameObject.SetActive(true);
 
-				button.onClick.AddListener(delegate () {
-					var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-						});
+				button.onClick.AddListener(delegate ()
+				{
+					golemUI.SetGolemFilter(item);
+				});
 			}
 		}
 	}

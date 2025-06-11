@@ -83,9 +83,7 @@ namespace FantasyLogistics
 					}
 					else if (entityManager.HasComponent<GolemInvetory>(entity))
 					{
-						GolemInvetory golem = entityManager.GetComponentData<GolemInvetory>(entity);
-						Debug.Log($"Golem: {golem.GetHashCode()}");
-
+						UIManager.Instance.OpenGolemUI(entity);
 						UIOpen = true;
 					}
 				}

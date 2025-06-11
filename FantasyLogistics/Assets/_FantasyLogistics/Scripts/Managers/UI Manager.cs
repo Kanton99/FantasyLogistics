@@ -36,5 +36,13 @@ namespace FantasyLogistics
 			BuildingUI.SetActive(true);
 			BuildingUI.GetComponentInChildren<RecipeStateUI>().SetupUI(building);
 		}
+
+		public void OpenGolemUI(Entity golem)
+		{
+			BuildingUI.SetActive(false);
+			PlayerInventory.SetActive(false);
+			GolemUI.SetActive(true);
+			GolemUI.GetComponentInChildren<GolemUI>().SetGolem(golem);
+		}
 	}
 }

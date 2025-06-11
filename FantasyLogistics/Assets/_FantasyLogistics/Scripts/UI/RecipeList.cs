@@ -10,6 +10,7 @@ namespace FantasyLogistics
 		public RecipeSO[] recipes;
 		public GameObject recipeUIPrefab;
 		public Transform recipeList;
+		public RecipeStateUI recipeState;
 
 		public Entity activeBuilding;
 
@@ -28,8 +29,7 @@ namespace FantasyLogistics
 
 				recipeUIElement.GetComponentInChildren<Button>().onClick.AddListener(delegate ()
 				{
-					var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-					transform.parent.GetComponentInChildren<RecipeStateUI>().SetBuildingRecipe(recipe);
+					recipeState.SetBuildingRecipe(recipe);
 				});
 			}
 		}
