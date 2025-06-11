@@ -371,6 +371,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb17612b47bebfd4e9847eee6eaeffe1, type: 2}
   recipeUIPrefab: {fileID: 8907010232112795170, guid: ed0fee0013f3d654182230161f97b90f, type: 3}
   recipeList: {fileID: 179335230}
+  recipeState: {fileID: 1838326782}
 --- !u!1001 &198048769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b3079b804714044e8bd1161d96cf138, type: 2}
   itemUIPrefab: {fileID: 7608641474391677823, guid: 7bddbdc915fbbc14cbb995134c7a00cf, type: 3}
   itemList: {fileID: 916382333}
+  golemUI: {fileID: 1001199961}
 --- !u!1 &965696608
 GameObject:
   m_ObjectHideFlags: 0
