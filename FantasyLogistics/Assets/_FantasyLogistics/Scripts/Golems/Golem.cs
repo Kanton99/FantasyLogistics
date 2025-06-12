@@ -15,6 +15,7 @@ namespace FantasyLogistics
 	{
 		public float3 target;
 		public float speed;
+		public Entity targetBuilding;
 		public Status status;
 	}
 

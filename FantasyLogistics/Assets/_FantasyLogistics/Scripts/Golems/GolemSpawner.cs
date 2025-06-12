@@ -37,7 +37,6 @@ namespace FantasyLogistics
 			{
 				if (instantiator.ValueRO.place)
 				{
-					//TODO Use EntityCommandBuffer
 					var ecbSystem = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
 					EntityCommandBuffer ecb = ecbSystem.CreateCommandBuffer(state.WorldUnmanaged);
 
