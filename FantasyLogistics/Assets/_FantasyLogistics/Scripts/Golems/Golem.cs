@@ -13,10 +13,17 @@ namespace FantasyLogistics
 
 	public struct GolemMovement : IComponentData
 	{
-		public float3 target;
 		public float speed;
-		public Entity targetBuilding;
 		public Status status;
+	}
+
+	public struct GolemTargets : IComponentData
+	{
+		public float3 pickupTarget;
+		public Entity pickupTargetBuilding;
+
+		public float3 dropTarget;
+		public Entity dropTargetBuilding;
 	}
 
 	public struct GolemInvetoryFilter : IComponentData

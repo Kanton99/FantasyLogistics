@@ -61,7 +61,7 @@ namespace FantasyLogistics
 
 	}
 
-	// [BurstCompile]
+	[BurstCompile]
 	partial struct GolemJob : IJobEntity
 	{
 		public NativeArray<Entity> buildings;
@@ -75,97 +75,38 @@ namespace FantasyLogistics
 		[NativeDisableParallelForRestriction]
 		public NativeParallelMultiHashMap<Entity, int> outputUpdates;
 
-		void Execute(Entity golemEntity, ref GolemMovement golem, ref GolemInvetory invetory, ref GolemInvetoryFilter filter, ref PhysicsVelocity golemVelocity)
+		void Execute(Entity golemEntity, ref GolemMovement golem, ref GolemInvetory invetory, ref GolemInvetoryFilter filter, ref PhysicsVelocity golemVelocity, ref GolemTargets targets)
 		{
 			LocalTransform golemTransform = buildingTransforms[golemEntity];
 			switch (golem.status)
 			{
 				case Status.STOP:
 					{
-						golemVelocity.Linear = float3.zero;
-						//TODO Search for next target
-						if (!filter.filteredItem.IsEmpty)
-						{
-							if (math.length(golem.target - golemTransform.Position) < 1f)
-							{
-								if (invetory.amout > 0)
-								{
-									//TODO PLACE ITEM
-									break;
-								}
-								else
-								{
-									//TODO Pickup item
-									var building = buildingComponents[golem.targetBuilding];
-									var output = outputs[building.recipeEntity];
-									int getAmount = 16;
-									if (outputUpdates.CountValuesForKey(building.recipeEntity) > 0)
-									{
-										var changes = outputUpdates.GetValuesForKey(building.recipeEntity);
-										var changesSum = changes.Current;
-										while (changes.MoveNext())
-										{
-											changesSum += changes.Current;
-										}
-										getAmount = math.min(getAmount, output.amount + changesSum);
-									}
-									else
-									{
-										getAmount = math.min(16, output.amount);
-									}
-									if (getAmount > 0)
-										outputUpdates.AsParallelWriter().Add(building.recipeEntity, -getAmount);
-									invetory.itemName = filter.filteredItem;
-									invetory.amout += getAmount;
-									break;
-								}
-							}
-							else
-								golem.status = Status.STOP;
-						}
 						break;
 					}
 				case Status.MOVING:
 					{
-						float3 direction = golem.target - golemTransform.Position;
-						if (math.length(direction) > 0f)
-						{
-							float3 normDir = math.normalize(direction);
-							golemVelocity.Linear = normDir * golem.speed * deltaTime;
-						}
-						else
-							golem.status = Status.STOP;
-						break;
-					}
-				case Status.PICKINGUP:
-					{
-						Entity[] buildingsArray = buildings.ToArray();
-						string filteredItem = filter.filteredItem.ToString();
-						var _this = this;
-						buildingsArray = Array.FindAll(buildingsArray, building =>
-								{
-									var recipe = _this.buildingComponents[building].recipeEntity;
-									if (_this.outputs.EntityExists(recipe))
-									{
-										var recipeOutput = _this.outputs[recipe].itemName;
-										return recipeOutput == filteredItem;
-									}
-									return false;
-								});
+						float3 target = invetory.amout > 0 ? targets.dropTarget : targets.pickupTarget;
+						float3 direction = target - buildingTransforms[golemEntity].Position;
+						float distance = math.length(direction);
 
-						if (buildings.Length > 0)
+						if (distance > 0.1f)
 						{
-							golem.target = buildingTransforms[buildingsArray[0]].Position;
-							golem.targetBuilding = buildings[0];
-							golem.status = Status.MOVING;
+							golemVelocity.Linear = math.normalize(direction) * golem.speed * deltaTime;
 						}
 						else
-							golem.status = Status.STOP;
+						{
+							golemVelocity.Linear = float3.zero;
+							golem.status = invetory.amout > 0 ? Status.PLACING : Status.PICKINGUP;
+						}
 						break;
 					}
 				case Status.PLACING:
 					{
-						//TODO Transporting items
+						break;
+					}
+				case Status.PICKINGUP:
+					{
 						break;
 					}
 
