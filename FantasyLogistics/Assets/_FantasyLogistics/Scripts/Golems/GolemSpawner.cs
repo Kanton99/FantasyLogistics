@@ -45,13 +45,12 @@ namespace FantasyLogistics
 					ecb.SetComponent(newGolem, LocalTransform.FromPosition(instantiator.ValueRO.position));
 					ecb.SetComponent(newGolem, new GolemMovement
 					{
-						target = float3.zero,
 						speed = 50f,
 						status = Status.STOP
 					});
 					ecb.AddComponent(newGolem, new GolemInvetory());
 					ecb.AddComponent(newGolem, new GolemInvetoryFilter());
-
+					ecb.AddComponent(newGolem, new GolemTargets());
 
 					instantiator.ValueRW.place = false;
 				}

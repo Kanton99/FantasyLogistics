@@ -47,8 +47,6 @@ namespace FantasyLogistics
 				entityManager.SetComponentData<GolemInvetory>(golem, golemInvetory);
 			}
 
-
-
 			SetGolem(golem);
 		}
 	}
